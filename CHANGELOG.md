@@ -1,5 +1,8 @@
 # ARA Changelog
 
+## 7.1.5 (29/02/2018)
+-[#657][BUG] clavier sur mobile pas affiché pour alloc
+
 ## 7.1.3 (27/02/2018)
 -[#658][BUG] Adresse timeout
 
