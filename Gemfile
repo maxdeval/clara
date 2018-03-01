@@ -56,6 +56,7 @@ group :development, :test do
   gem 'pry-remote'
   gem 'jasmine'
   gem 'magic_lamp'
+  gem 'parallel_tests'
 end
 
 group :test do
