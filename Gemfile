@@ -67,6 +67,7 @@ group :test do
   gem 'poltergeist'
   gem 'rack_session_access'
   gem 'webmock'
+  gem 'sqlite3'
   gem 'coffee-rails'
 end
 

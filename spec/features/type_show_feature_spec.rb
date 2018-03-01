@@ -24,11 +24,14 @@ feature 'A show type page' do
     it 'Should have 2 aids' do
       should_have seen, 2, ".c-result-aid"
     end
-    it "Title of first active aid must be aid_not_harki_1" do
-      should_have seen, "1st", ".c-result-aid__title", :with_text, "aid_not_harki_1"
+    it "Should have 2 differents title" do
+      should_have seen, :two_differents, ".c-result-aid__title"
     end
-    it "Title of second active aid must be aid_harki_1" do
-      should_have seen, "2nd", ".c-result-aid__title", :with_text, "aid_harki_1"
+    it "Title of first active aid must be aid_not_harki_1 or aid_harki_1" do
+      should_have seen, "1st", ".c-result-aid__title", :with_text_amongst, ["aid_not_harki_1", "aid_harki_1"]
+    end
+    it "Title of second active aid must be aid_not_harki_1 or aid_harki_1" do
+      should_have seen, "2nd", ".c-result-aid__title", :with_text_amongst, ["aid_not_harki_1", "aid_harki_1"]
     end
     it "Call to action with text \"Je commence\" must be present" do
       should_have seen, 1, ".c-detail-cta", :with_text, "Je commence"

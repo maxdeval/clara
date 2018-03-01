@@ -14,7 +14,18 @@ require 'support/admin_helper'
 
 Capybara.javascript_driver = :poltergeist
 
-ActiveRecord::Migration.maintain_test_schema!
+
+# ActiveRecord::Migration.maintain_test_schema!
+
+# In order to keep the same RAILS_ENV for rspec and cucumber, and to make rspec
+# faster, patch the connection to use sqlite in memory when running rspec
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
+ActiveRecord::Schema.verbose = false
+# load db agnostic schema by default. Needed to remove the ", id: :serial" from
+# the table definitions to make it load on sqlite
+eval(`cat #{Rails.root.to_s}/db/schema.rb | sed 's/,[^:]*: :serial\//g'`)
+
+
 
 def expect_all_unchecked(checkbox_or_radio_buttons)
   checkbox_or_radio_buttons.each do |checkbox_or_radio_button|
@@ -102,18 +113,28 @@ def tih(selector)
   res = find(selector, visible: false).value
 end
 
+
+
 def should_have(seen, size, selector, with=nil, with_arg=nil)
   position = 0
   if size.is_a?(Integer)
     expect(seen.css(selector).size).to eq(size)
   elsif size.is_a?(String)
     position = size.to_i - 1
+  elsif size == :two_differents
+    first = seen.css(selector)[0].text.strip
+    second = seen.css(selector)[1].text.strip
+    expect(first).not_to eq("")
+    expect(second).not_to eq("")
+    expect(first).not_to eq(second)
   end
   if with
     if with == :with_text
       expect(seen.css(selector)[position].text.strip).to eq(with_arg)
     elsif with == :with_text_that_include
       expect(seen.css(selector)[position].text.strip).to include(with_arg)
+    elsif with == :with_text_amongst
+      expect(seen.css(selector)[position].text.strip).to include(with_arg[0]).or include(with_arg[1]) 
     end
   end
 end
