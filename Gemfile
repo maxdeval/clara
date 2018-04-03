@@ -68,8 +68,6 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
-  gem 'poltergeist'
   gem 'rack_session_access'
   gem 'webmock'
   gem 'coffee-rails'
@@ -78,6 +76,7 @@ end
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
   gem 'guard', '>= 2.2.2', :require => false

@@ -6,13 +6,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'capybara/rspec'
 require 'rspec/rails'
-require 'capybara/poltergeist'
 require 'support/factory_bot'
 
 #custom helpers
 require 'support/admin_helper'
-
-Capybara.javascript_driver = :poltergeist
 
 ActiveRecord::Migration.maintain_test_schema!
 
